@@ -4,7 +4,12 @@ var SCALE = {
     ACCIDENTALS:['bb','b','','#','x'],
     CHROMATIC:[1,1,1,1,1,1,1,1,1,1,1,1],
     MAJOR:[2,2,1,2,2,2,1], 
-    MINOR:[2,1,2,2,1,2,2] 
+    MINOR:[2,1,2,2,1,2,2],
+    HARMONIC_MINOR:[2,1,2,2,1,3,1],
+    MELODIC_MINOR:[2,1,2,2,2,2,1],
+    DORIAN:[2,1,2,2,2,1,2], 
+    MIXOLYDIAN:[2,2,1,2,2,1,2],
+    BLUES:[3,2,1,1,3,3]
 };
 
 var Scale = function(options) {
