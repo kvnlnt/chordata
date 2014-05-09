@@ -34,7 +34,12 @@ describe("Chord", function() {
   });
 
   it("should be able to get all chords containing a specific note", function() {
-    expect(C_MAJOR.getAllChordsContaining('C').length).toEqual(85);
+    expect(C_MAJOR.getChordsContainingNote('C').length).toEqual(89);
+  });
+
+   it("should be able to get all chords containing specified notes", function() {
+    expect(C_MAJOR.getChordsContainingNotes(['C','Eb','Gb','Bb'])[0].key).toEqual('C');
+    expect(C_MAJOR.getChordsContainingNotes(['C','Eb','Gb','Bb'])[0].chord).toEqual('MINOR_7TH_FLAT_5');
   });
 
 

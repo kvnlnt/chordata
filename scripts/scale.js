@@ -1,5 +1,6 @@
 // enums
 var SCALE = { 
+
     ROOTS:['C','D','E','F','G','A','B'],
     ACCIDENTALS:['bb','b','','#','x'],
     CHROMATIC:[1,1,1,1,1,1,1,1,1,1,1,1],
@@ -10,6 +11,7 @@ var SCALE = {
     DORIAN:[2,1,2,2,2,1,2], 
     MIXOLYDIAN:[2,2,1,2,2,1,2],
     BLUES:[3,2,1,1,3,3]
+    
 };
 
 var Scale = function(options) {

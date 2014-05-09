@@ -14,6 +14,7 @@ var CHORD = {
 	MINOR_6TH:['1','3b','5','6'],
 	MINOR_6TH_ADD_9:['1','3b','5','6','9'],
 	MINOR_7TH:['1','3b','5','7b'],
+	MINOR_7TH_FLAT_5:['1','3b','5b','7b'],
 	MINOR_ADD_9:['1','3b','5','9'],
 	MINOR_9TH:['1','3b','5','7b','9'],
 	MINOR_11TH:['1','3b','5','7b','9','11'],
@@ -25,6 +26,7 @@ var CHORD = {
 	DOMINANT_7TH:['1','3','5','7b'],
 	SUSPENDED_4TH:['1','4','5'],
 	SUSPENDED_2ND:['1','2','5']
+	
 };
 
 var Chord = function(options){
@@ -108,8 +110,13 @@ var Chord = function(options){
 
 	    };
 
-	    // get all chords that have the past note
-	    var getAllChordsContaining = function(note){
+	    // get chord name by notes
+	    var getChordNameByNotes = function(){
+
+	    };
+
+	    // get all chords containing a specific note
+	    var getChordsContainingNote = function(note){
 
 	    	var allChords   = getAllChords();
 	    	var foundChords = [];
@@ -122,6 +129,37 @@ var Chord = function(options){
 	    			}
 	    		}
 	    	}
+
+	    	return foundChords;
+
+	    };
+
+	    // get all chords containing all specified notes
+	    var getChordsContainingNotes = function(notes){
+
+	    	var allChords   = getAllChords();
+	    	var foundChords = [];
+
+	    	// loop all chords
+	    	for(var key in allChords){
+
+	    		// loop chord types
+	    		for(var chord in allChords[key]){
+
+	    			// get notes from chord
+	    			var _notes = allChords[key][chord];
+
+	    			// assume match to true
+	    			var match = 0 == _.difference(_notes, notes).length && 0 == _.difference(notes, _notes) ? true : false;
+
+	    			// if still a match, add to found list
+	    			if(match){
+	    				foundChords.push({key:key, chord:chord, notes:_notes});
+	    			}
+
+	    		} // for
+
+	    	} // for
 
 	    	return foundChords;
 
@@ -147,7 +185,8 @@ var Chord = function(options){
     	setType:setType,
     	getChordNotes:getChordNotes,
     	getAllChords:getAllChords,
-    	getAllChordsContaining:getAllChordsContaining
+    	getChordsContainingNote:getChordsContainingNote,
+    	getChordsContainingNotes:getChordsContainingNotes
     }
 
 };
