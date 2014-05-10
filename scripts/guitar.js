@@ -24,26 +24,26 @@ var Guitar = function(options) {
 	    };
 
 	    // get the fretboard layout
-	    var getFretboard = function() {
+	    var getStrings = function() {
 
 	        // fretboard object
-	        var fretboard = {};
+	        var strings = {};
 
 	        // naturalize the layout
-	        var strings = getTuning();
+	        var tuning = getTuning();
 
 	        // loop em
-	        _.each(strings, function(string, index) {
-	            fretboard[index + 1] = getStringNotes(index + 1);
+	        _.each(tuning, function(string, index) {
+	            strings[index + 1] = getString(index + 1);
 	        });
 
 	        // return it
-	        return fretboard;
+	        return strings;
 
 	    };
 
 	    // get string notes by octaves
-	    var getStringNotes = function(string, frets) {
+	    var getString = function(string, frets) {
 
 	        // default frets
 	        var frets = typeof frets == 'undefined' ? getFrets() : frets;
@@ -72,6 +72,11 @@ var Guitar = function(options) {
 
 	    };
 
+	    // get note by string & fret
+	    var getNote = function(string, fret){
+	    	return getString(string)[fret];
+	    };
+
     // SETTERS
 
 	    // set tuning
@@ -93,8 +98,9 @@ var Guitar = function(options) {
 	        setTuning: setTuning,
 	        getFrets: getFrets,
 	        setFrets: setFrets,
-	        getFretboard: getFretboard,
-	        getStringNotes: getStringNotes
+	        getStrings: getStrings,
+	        getString: getString,
+	        getNote:getNote
 	    }
 
 };

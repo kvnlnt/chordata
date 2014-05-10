@@ -23,17 +23,21 @@ describe("Guitar", function() {
         expect(guitar.getFrets()).toEqual(12);
     });
 
-    it("should be able to get getFretboard", function() {
-        expect(guitar.getFretboard()[1]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
-        expect(guitar.getFretboard()[2]).toEqual(["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"]);
-        expect(guitar.getFretboard()[3]).toEqual(["G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"]);
-        expect(guitar.getFretboard()[4]).toEqual(["D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"]);
-        expect(guitar.getFretboard()[5]).toEqual(["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]);
-        expect(guitar.getFretboard()[6]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
+    it("should be able to get strings", function() {
+        expect(guitar.getStrings()[1]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
+        expect(guitar.getStrings()[2]).toEqual(["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"]);
+        expect(guitar.getStrings()[3]).toEqual(["G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"]);
+        expect(guitar.getStrings()[4]).toEqual(["D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"]);
+        expect(guitar.getStrings()[5]).toEqual(["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]);
+        expect(guitar.getStrings()[6]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
     });
 
-    it("should be able to get getStringNotes", function() {
-      expect(guitar.getStringNotes(1,10)).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"] );
+    it("should be able to get string", function() {
+      expect(guitar.getString(1,10)).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"] );
+    });
+
+    it("should be able to get a note by string and fret", function() {
+      expect(guitar.getNote(1,3)).toEqual("G");
     });
 
 });
