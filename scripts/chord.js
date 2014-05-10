@@ -31,9 +31,10 @@ var CHORD = {
 
 var Chord = function(options){
 
-	// settings
-    var defaults = { root:'C', type:CHORD.MAJOR };
-    var settings = $.extend({}, defaults, options);
+	// SETTINGS
+
+	    var defaults = { root:'C', type:CHORD.MAJOR };
+	    var settings = _.extend({}, defaults, options);
 
     // GETTERS
 
@@ -110,27 +111,25 @@ var Chord = function(options){
 
 	    };
 
-	    // get chord name by notes
-	    var getChordNameByNotes = function(){
-
-	    };
-
 	    // get all chords containing a specific note
 	    var getChordsContainingNote = function(note){
 
 	    	var allChords   = getAllChords();
 	    	var foundChords = [];
+	    	var root        = note[0];
 
 	    	for(var key in allChords){
 	    		for(var chord in allChords[key]){
 	    			var notes = allChords[key][chord];
-	    			if($.inArray(note, notes) != -1){
+	    			if(_.contains(notes,note)){
 	    				foundChords.push({key:key, chord:chord, notes:notes});
 	    			}
 	    		}
 	    	}
 
-	    	return foundChords;
+	    	var result = _.sortBy(foundChords, function(chord){ return chord.key != root; });
+
+	    	return result;
 
 	    };
 
@@ -139,6 +138,7 @@ var Chord = function(options){
 
 	    	var allChords   = getAllChords();
 	    	var foundChords = [];
+	    	var root        = notes[0];
 
 	    	// loop all chords
 	    	for(var key in allChords){
@@ -161,7 +161,9 @@ var Chord = function(options){
 
 	    	} // for
 
-	    	return foundChords;
+	    	var result = _.sortBy(foundChords, function(chord){ return chord.key != root; });
+
+	    	return result;
 
 	    };
 
@@ -177,17 +179,18 @@ var Chord = function(options){
         	return settings.type;
         };
 
-    // exports
-    return {
-    	getRoot:getRoot,
-    	setRoot:setRoot,
-    	getType:getType,
-    	setType:setType,
-    	getChordNotes:getChordNotes,
-    	getAllChords:getAllChords,
-    	getChordsContainingNote:getChordsContainingNote,
-    	getChordsContainingNotes:getChordsContainingNotes
-    }
+    // RETURN
+    
+	    return {
+	    	getRoot:getRoot,
+	    	setRoot:setRoot,
+	    	getType:getType,
+	    	setType:setType,
+	    	getChordNotes:getChordNotes,
+	    	getAllChords:getAllChords,
+	    	getChordsContainingNote:getChordsContainingNote,
+	    	getChordsContainingNotes:getChordsContainingNotes
+	    }
 
 };
 

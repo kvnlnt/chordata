@@ -1,10 +1,25 @@
 <html>
 	<head>
 		<title>chordata</title>
-		<script src="scripts/jquery-2.1.0.min.js"></script>
-		<script src="scripts/underscore.min.js"></script>
+		<script src="scripts/underscore-min.js"></script>
 		<script src="scripts/scale.js"></script>
 		<script src="scripts/chord.js"></script>
+		<script>
+
+			// scale
+			scale = new Scale({key:'E', scale:SCALE.MAJOR});
+			scale.getChromaticScale();
+
+			scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
+			scale.getChromaticScale();
+
+			scale = new Scale({key:'C', scale:SCALE.MAJOR});
+			scale.getChromaticScale();
+
+			// chords
+			chord = new Chord();
+
+		</script>
 	</head>
 	<body>
 		<h1>Chordata</h1>
