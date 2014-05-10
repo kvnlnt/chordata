@@ -115,9 +115,13 @@ var Scale = function(options) {
 
                 // push scrubbed note to scale
                 scale.push(note);
+
             });
 
-            console.log(scale);
+            // now rearrange so key note is first in list, helpful for instrument layouts
+            var index = scale.indexOf(getKey());
+            var scale = scale.concat(scale.splice(0, index));
+
             // return filtered scale based on key
             return scale;
 
