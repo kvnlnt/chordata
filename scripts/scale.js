@@ -1,15 +1,48 @@
 // enums
 var SCALE = {
 
-    NOTES:[['C'], ['C#','Db'], ['D'], ['D#','Eb'], ['E'], ['F'], ['F#','Gb'], ['G'], ['G#','Ab'], ['A'], ['A#','Bb'], ['B']],
-    CHROMATIC:[1,1,1,1,1,1,1,1,1,1,1,1],
-    MAJOR: [2, 2, 1, 2, 2, 2, 1],
-    MINOR: [2, 1, 2, 2, 1, 2, 2],
-    HARMONIC_MINOR: [2, 1, 2, 2, 1, 3, 1],
-    MELODIC_MINOR: [2, 1, 2, 2, 2, 2, 1],
-    DORIAN: [2, 1, 2, 2, 2, 1, 2],
-    MIXOLYDIAN: [2, 2, 1, 2, 2, 1, 2],
-    BLUES: [3, 2, 1, 1, 3, 3]
+    NOTES: ['A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab'],
+
+    CHROMATIC:{
+        name:'Chromatic',
+        steps:'H,H,H,H,H,H,H,H,H,H,H,H',
+        formula:[1,1,1,1,1,1,1,1,1,1,1,1]
+    },
+    MAJOR: {
+        name: 'Major',
+        steps: 'R, W, W, H, W, W, W, H',
+        formula: [2, 2, 1, 2, 2, 2, 1]
+    },
+    NATURAL_MINOR: {
+        name: "Minor",
+        steps: 'R, W, H, W, W, H, W, W',
+        formula: [2, 1, 2, 2, 1, 2, 2]
+    },
+    HARMONIC_MINOR: {
+        name: "Harm. Minor",
+        steps: 'R, W, H, W, W, H, W+H, H',
+        formula: [2, 1, 2, 2, 1, 3, 1]
+    },
+    MELODIC_MINOR: {
+        name: "Mel. Minor",
+        steps: 'R, W, H, W, W, W, W, H',
+        formula: [2, 1, 2, 2, 2, 2, 1]
+    },
+    DORIAN_MODE: {
+        name: "Dorian",
+        steps: 'R, W, H, W, W, W, H, W',
+        formula: [2, 1, 2, 2, 2, 1, 2]
+    },
+    MIXOLYDIAN_MODE: {
+        name: "Mixolydian",
+        steps: 'R, W, W, H, W, W, H, W',
+        formula: [2, 2, 1, 2, 2, 1, 2]
+    },
+    BLUES: {
+        name: "Blues",
+        steps: 'R, W+H, W, W, W+H, W',
+        formula: [3, 2, 1, 1, 3, 3]
+    }
 
 };
 
@@ -17,118 +50,78 @@ var Scale = function(options) {
 
     // SETTINGS
 
-        var defaults = { key: 'C', scale: SCALE.MAJOR };
-        var settings = _.extend({}, defaults, options);
+    var defaults = {
+        root: 'C',
+        scale: SCALE.MAJOR
+    };
+
+    var settings = _.extend({}, defaults, options);
 
     // GETTERS
 
-        // get key
-        var getKey = function() {
-            return settings.key;
-        };
+    // get key
+    var getRoot = function() {
+        return settings.root;
+    };
 
-        // get scale
-        var getScale = function() {
-            return settings.scale;
-        };
+    // get scale
+    var getScale = function() {
+        return settings.scale;
+    };
 
-        // get 9ths, 11ths, 13ths
-        var getExtension = function(degree) {
+    // get scale notes
+    var getNotes = function() {
 
-            var scale = getScaleNotes(); // get scale
-            var extendedScale = scale.concat(scale); // dupicate
+        // find index of root
+        var index = 0;
+        for(var note in SCALE.NOTES){ 
+            if(_.contains(SCALE.NOTES[note].split('/'),settings.root)){
+                index = note;
+            }
+        }
 
-            return extendedScale[degree - 1]; // return degree
+        // copy chromatic scale
+        var chromatic = SCALE.NOTES.slice(0);
 
-        };
+        // rearrange so root is first
+        chromatic = chromatic.concat(chromatic.splice(0, index));
 
-        var getScaleNotes = function(){
+        // create some containers
+        var step  = 0;
+        var notes = [];
+        var roots = [];
 
-            var notes = [];
-            var chromatic = getChromaticScale();
-            var pos = 0;
-            var scale = getScale();
+        // loop scale formula and cherry pick notes
+        _.each(settings.scale.formula,function(interval){
 
-            _.each(scale, function(interval){
+            notes.push(chromatic[step]);
+            step += interval;
 
-                notes.push(chromatic[pos]);
-                pos = pos + interval;
+        });
 
-            });
-
-            return notes;
-
-        };
-
-        // get extended scale
-        var getScaleNotesExtended = function() {
-
-            var scale = getScaleNotes(); // get scale notes anc copy
-            var copy = scale.slice(0);
-            var extendedScale = copy.concat(copy);
-
-            return extendedScale;
-
-        };
-
-        // get chromatic scale filtered by key signature
-        var getChromaticScale = function() {
-
-            var mode   = 0 <= settings.key.indexOf('b') ? 'flats' : 'sharps'; // 
-            var scale  = [];
-            var note, enharmonic;
-
-            // loop and filter chromatic scale
-            _.each(SCALE.CHROMATIC, function(interval) {
-
-                // default
-                note = interval[0];
-
-                // enharmonic check
-                enharmonic = 2 == interval.length;
-
-                // enharmonic note choice
-                if('sharps' == mode && enharmonic){ note = interval[0]; }  // if sharp and this interval is an enharmonic, set to flat note
-                if('flats'  == mode && enharmonic){ note = interval[1]; } // if flat and this interval is an enharmonic, set to flat note
-
-                // push scrubbed note to scale
-                scale.push(note);
-
-            });
-
-            // now rearrange so key note is first in list, helpful for instrument layouts
-            var index = scale.indexOf(getKey());
-            var scale = scale.concat(scale.splice(0, index));
-
-            // return filtered scale based on key
-            return scale;
-
-        };
+        return notes;
+    };
 
     // SETTERS
 
-        var setKey = function(key) {
-            settings.key = key;
-            return settings.key;
-        };
+    var setRoot = function(root) {
+        settings.root = root;
+        return settings.root;
+    };
 
-        var setScale = function(scale) {
-            settings.scale = scale;
-            return settings.scale;
-        };
+    var setScale = function(scale) {
+        settings.scale = scale;
+        return settings.scale;
+    };
 
     // RETURN
 
-        return {
-            getKey: getKey,
-            setKey: setKey,
-            getScale: getScale,
-            setScale: setScale,
-            getScaleNotes: getScaleNotes,
-            getExtension: getExtension,
-            getScaleNotesExtended: getScaleNotesExtended,
-            shiftNote: shiftNote,
-            getChromaticScale: getChromaticScale
-        }
+    return {
+        getRoot:getRoot,
+        setRoot:setRoot,
+        getScale:getScale,
+        setScale:setScale,
+        getNotes:getNotes
+    }
 
 };
