@@ -91,9 +91,10 @@ var Scale = function(options) {
 
         };
 
-        // get chromatic scale filtered by key notes
-        var getChromaticScale = function() {
+        // get chromatic scale with option to turn off filtering of enharmonics by notes in key
+        var getChromaticScale = function(filter) {
 
+            var filter    = "undefined" === typeof filter ? true : filter;
             var chromatic = [['C'], ['C#','Db'], ['D'], ['D#','Eb'], ['E'], ['F'], ['F#','Gb'], ['G'], ['G#','Ab'], ['A'], ['A#','Bb'], ['B']];
             var notes     = getScaleNotes(); // should only contain sharps or flats as keys do
             var mode      = 0 <= notes.join().indexOf('b') ? 'flats' : 'sharps'; // 
@@ -110,8 +111,9 @@ var Scale = function(options) {
                 enharmonic = 2 == interval.length;
 
                 // enharmonic note choice
-                if('sharps' == mode && enharmonic){ note = interval[0]; }  // if sharp and this interval is an enharmonic, set to flat note
-                if('flats'  == mode && enharmonic){ note = interval[1]; } // if flat and this interval is an enharmonic, set to flat note
+                if('sharps' == mode && enharmonic && filter){ note = interval[0]; }  // if sharp and this interval is an enharmonic, set to flat note
+                if('flats'  == mode && enharmonic && filter){ note = interval[1]; }  // if flat and this interval is an enharmonic, set to flat note
+                if(enharmonic && !filter){ note = interval[0] + '/' + interval[1]; } // if no filtering and enharmonic, add both
 
                 // push scrubbed note to scale
                 scale.push(note);

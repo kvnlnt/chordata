@@ -56,6 +56,10 @@ describe("Scale", function() {
     expect(E_BLUES.getChromaticScale()).toEqual(["E", "F", "Gb", "G", "Ab", "A", "Bb", "B", "C", "Db", "D", "Eb"]);
   });
 
+    it("should be able to get unfiltered chromatic scale", function() {
+    expect(C_MAJOR.getChromaticScale(false)).toEqual(["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"] );
+  });
+
   it("should be able to normalize notes", function() {
     expect(C_MAJOR.normalizeNote('Fx')).toEqual("G");
     expect(C_MAJOR.normalizeNote('A#')).toEqual("A#");

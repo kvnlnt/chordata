@@ -60,7 +60,7 @@ var Guitar = function(options) {
 	        // get this tunings filtetered scale
 	        var scale = new Scale({
 	            key: open
-	        }).getChromaticScale();
+	        }).getChromaticScale(false);
 
 	        // concat scale to number of octaves
 	        var notes = _.flatten(_.times(octaves, function() {

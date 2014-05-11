@@ -24,20 +24,17 @@ describe("Guitar", function() {
     });
 
     it("should be able to get all strings", function() {
-        expect(guitar.getStrings()[1]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
-        expect(guitar.getStrings()[2]).toEqual(["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"]);
-        expect(guitar.getStrings()[3]).toEqual(["G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"]);
-        expect(guitar.getStrings()[4]).toEqual(["D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"]);
-        expect(guitar.getStrings()[5]).toEqual(["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]);
-        expect(guitar.getStrings()[6]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
+        expect(guitar.getStrings()[1]).toEqual(['E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb']);
+        expect(guitar.getStrings()[2]).toEqual(['B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb']);
     });
 
-    it("should be able to get string", function() {
-      expect(guitar.getString(1,10)).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"] );
+    it("should be able to get a string", function() {
+        expect(guitar.getStrings()[1]).toEqual(['E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B', 'C', 'C#/Db', 'D', 'D#/Eb']);
     });
 
     it("should be able to get a note by string and fret", function() {
-      expect(guitar.getNote(1,3)).toEqual("G");
+        expect(guitar.getNote(1, 1)).toEqual("F");
+        expect(guitar.getNote(1, 6)).toEqual("A#/Bb");
     });
 
 });
