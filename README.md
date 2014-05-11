@@ -1,9 +1,49 @@
 # Chordata
 
-Chordata's probably a bad name. I set out to create a script that would allow me to list out all the chords that contained a particular note. For that you need to know all possible scales and chords in all keys. Ugh. Therefore there are two files, scales and chords and they can generate any scale and any chord based on configuration options (which can be tuned) at the top of each script. I'd write some examples but no need - just checkout the jasmine unit tests.
+	Chordata is basic music notation library written in javascript. It currently supports the following functions:
 
-## Harmonization : That's what I built this for
-Writing melodies and harmonizing them. Since you can look up any scale, you can reference it to compose a melody and since you can look up any chord that contains a particular note, you have a plethora of chord options way beyond the diatonics. 
+##Key
+	* get root
+	* set root
+	* get key
+	* set key
+	* get roots
+	* get notes
+	* get relative key
+
+##Scale
+	* get key
+	* set key
+	* get scale pattern
+	* set scale pattern
+	* get scale notes
+	* get extended scale notes
+	* flatten scale notes
+	* sharpen scale notes
+	* get filtered chromatic scale
+	* get unfiltered chromatic scale
+	* normalize notes
+	* sharpen notes
+	* flatten notes
+
+##Chord
+	* get root
+	* set root
+	* get type
+	* set type
+	* get chord notes
+	* get all chords
+	* get all chords containing a specific note
+	* get all chords containing specified notes
+
+##Guitar
+	* get tuning
+	* set tuning
+	* get frets
+	* set frets
+	* get all strings
+	* get a string
+	* get a note by string and fret
 
 ## Songwriting tools
 For more songwriting tools checkout my http://chordynator.com
