@@ -4,18 +4,23 @@
 		<script src="scripts/underscore-min.js"></script>
 		<script src="scripts/scale.js"></script>
 		<script src="scripts/chord.js"></script>
+		<script src="scripts/key.js"></script>
 		<script src="scripts/guitar.js"></script>
 		<script>
 
 			// guitar
-			guitar = new Guitar();
-			console.log(guitar.getStrings());
-			console.log(guitar.getString(6,5));
-			console.log(guitar.getNote(1,3));
+			// guitar = new Guitar();
+			// console.log(guitar.getStrings());
+			// console.log(guitar.getString(6,5));
+			// console.log(guitar.getNote(1,3));
 
-			// scale
-			// scale = new Scale({key:'E', scale:SCALE.MAJOR});
-			// scale.getChromaticScale();
+			//key
+			key = new Key({root:'E', key:KEY.MINOR});
+			console.log(key.getNotes());
+
+			// // scale
+			// scale = new Scale({key:'C', scale:SCALE.MINOR});
+			// console.log(scale.getScaleNotes());
 
 			// scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
 			// scale.getChromaticScale();
@@ -23,8 +28,8 @@
 			// scale = new Scale({key:'C', scale:SCALE.MAJOR});
 			// scale.getChromaticScale();
 
-			// chords
-			chord = new Chord();
+			// // chords
+			// chord = new Chord();
 
 		</script>
 	</head>

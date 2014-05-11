@@ -23,7 +23,7 @@ describe("Guitar", function() {
         expect(guitar.getFrets()).toEqual(12);
     });
 
-    it("should be able to get strings", function() {
+    it("should be able to get all strings", function() {
         expect(guitar.getStrings()[1]).toEqual(["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"]);
         expect(guitar.getStrings()[2]).toEqual(["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"]);
         expect(guitar.getStrings()[3]).toEqual(["G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"]);
