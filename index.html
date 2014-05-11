@@ -2,9 +2,9 @@
 	<head>
 		<title>chordata</title>
 		<script src="scripts/underscore-min.js"></script>
+		<script src="scripts/key.js"></script>
 		<script src="scripts/scale.js"></script>
 		<script src="scripts/chord.js"></script>
-		<script src="scripts/key.js"></script>
 		<script src="scripts/guitar.js"></script>
 		<script>
 
@@ -15,12 +15,19 @@
 			// console.log(guitar.getNote(1,3));
 
 			// key
-			key = new Key({root:'E', key:KEY.MINOR});
-			console.log('key', key);
+			// key = new Key({root:'E', key:KEY.BLUES});
+			// console.log('E Blues', key.getNotes());
 
-			// // scale
-			// scale = new Scale({root:'Eb', scale:SCALE.MAJOR});
-			// console.log('scale',scale.getNotes());
+			// scale
+			scale = new Scale({key:'E', scale:SCALE.BLUES});
+			console.log('E BLUES', scale.getScaleNotes());
+			console.log('E Blues Chrome', scale.getChromaticScale());
+			scale = new Scale({key:'A', scale:SCALE.MINOR});
+			console.log('A MINOR', scale.getScaleNotes());
+			scale = new Scale({key:'E', scale:SCALE.MIXOLYDIAN});
+			console.log('E MIXOLYDIAN', scale.getScaleNotes());
+			scale = new Scale({key:'C', scale:SCALE.HARMONIC_MINOR});
+			console.log('C HARMONIC_MINOR', scale.getScaleNotes());
 
 			// scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
 			// scale.getChromaticScale();
@@ -29,7 +36,8 @@
 			// scale.getChromaticScale();
 
 			// // chords
-			// chord = new Chord();
+			chord = new Chord();
+			console.log(chord.getAllChords());
 
 		</script>
 	</head>

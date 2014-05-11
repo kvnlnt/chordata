@@ -90,18 +90,21 @@ var Chord = function(options){
 	    	var accs = ['b','','#'];
 			var i = 0;
 			var chords = {};
+			var ignore = ['B#','Cb','E#','Fb'];
 
-			for(var root in SCALE.ROOTS){
-				var root = SCALE.ROOTS[root];
+			for(var root in SCALE.NOTES){
+				var root = SCALE.NOTES[root];
 				for(var acc in accs){
 					var acc  = accs[acc];
 
-					chords[root+acc] = {};
+					if(!_.contains(ignore, root+acc)){
 
-					for(var chordtype in CHORD){
-						var chord = new Chord({root:(root+acc), type:CHORD[chordtype]});
-						i += 1;
-						chords[root+acc][chordtype] = chord.getChordNotes();
+						chords[root+acc] = {};
+						for(var chordtype in CHORD){
+							var chord = new Chord({root:(root+acc), type:CHORD[chordtype]});
+							i += 1;
+							chords[root+acc][chordtype] = chord.getChordNotes();
+						}
 					}
 				}
 

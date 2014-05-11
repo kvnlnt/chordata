@@ -26,7 +26,7 @@ describe("Key", function() {
   });
 
   it("should be able to get roots", function() {
-    expect(C_MAJOR.getRoots()).toEqual(["C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B"]);
+    expect(C_MAJOR.getRoots()).toEqual(["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]);
   });
 
   it("should be able to get notes", function() {

@@ -34,7 +34,7 @@ describe("Chord", function() {
   });
 
   it("should be able to get all chords containing a specific note", function() {
-    expect(C_MAJOR.getChordsContainingNote('C').length).toEqual(89);
+    expect(C_MAJOR.getChordsContainingNote('C').length).toEqual(116);
   });
 
    it("should be able to get all chords containing specified notes", function() {
