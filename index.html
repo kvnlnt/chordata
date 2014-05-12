@@ -9,8 +9,8 @@
 		<script>
 
 			// guitar
-			guitar = new Guitar();
-			console.log(guitar.getStrings());
+			// guitar = new Guitar();
+			// console.log(guitar.getStrings());
 			// console.log(guitar.getString(6,5));
 			// console.log(guitar.getNote(1,3));
 
@@ -28,8 +28,14 @@
 			// console.log('E MIXOLYDIAN', scale.getScaleNotes());
 			// scale = new Scale({key:'C', scale:SCALE.HARMONIC_MINOR});
 			// console.log('C HARMONIC_MINOR', scale.getScaleNotes());
-			scale = new Scale({key:'C', scale:SCALE.MAJOR});
-			console.log('C Major', scale.getChromaticScale(false));
+			scale = new Scale({key:'C#', scale:SCALE.MAJOR});
+			console.log('C# Major', scale.getChromaticScale());
+
+			scale = new Scale({key:'E', scale:SCALE.MAJOR});
+			console.log('E Major', scale.getChromaticScale(true));
+
+			scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
+			console.log('Eb Major', scale.getChromaticScale(true));
 
 			// scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
 			// scale.getChromaticScale();
