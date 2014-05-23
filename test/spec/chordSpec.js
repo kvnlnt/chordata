@@ -17,12 +17,12 @@ describe("Chord", function() {
   });
 
   it("should be able to get type", function() {
-    expect(C_MAJOR.getType()).toEqual(['1','3','5']);
+    expect(C_MAJOR.getType().formula).toEqual(['1','3','5']);
   });
 
   it("should be able to set type", function() {
-    C_MAJOR.setType(['1','3b','5']);
-    expect(C_MAJOR.getType()).toEqual(['1','3b','5']);
+    C_MAJOR.setType(CHORD.MINOR);
+    expect(C_MAJOR.getType().formula).toEqual(['1','3b','5']);
   });
 
   it("should be able to get chord notes", function() {
@@ -30,17 +30,25 @@ describe("Chord", function() {
   });
 
   it("should be able to get all chords", function() {
-    expect(C_MAJOR.getAllChords()['C'].MAJOR).toEqual(['C','E','G']);
+    expect(C_MAJOR.getAllChords()['C'].MAJOR.notes).toEqual(['C','E','G']);
   });
 
   it("should be able to get all chords containing a specific note", function() {
     expect(C_MAJOR.getChordsContainingNote('C').length).toEqual(116);
   });
 
-   it("should be able to get all chords containing specified notes", function() {
+   it("should be able to get all chords containing specified notes, including enhamronics", function() {
     expect(C_MAJOR.getChordsContainingNotes(['C','Eb','Gb','Bb'])[0].key).toEqual('C');
     expect(C_MAJOR.getChordsContainingNotes(['C','Eb','Gb','Bb'])[0].chord).toEqual('MINOR_7TH_FLAT_5');
+    expect(C_MAJOR.getChordName(['E','Ab','B']).root).toEqual('E');
+    expect(C_MAJOR.getChordName(['E','Ab','B']).type).toEqual('Major');
+    expect(C_MAJOR.getChordName(['E','G#','B']).root).toEqual('E');
+    expect(C_MAJOR.getChordName(['E','G#','B']).type).toEqual('Major');
   });
+
+   it("should be able to translate enhamronics", function(){
+    expect(C_MAJOR.getEnharmonic(['G#','Ab'])).toEqual(['Ab','G#']);
+   });
 
 
 });

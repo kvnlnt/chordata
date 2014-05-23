@@ -28,14 +28,14 @@
 			// console.log('E MIXOLYDIAN', scale.getScaleNotes());
 			// scale = new Scale({key:'C', scale:SCALE.HARMONIC_MINOR});
 			// console.log('C HARMONIC_MINOR', scale.getScaleNotes());
-			scale = new Scale({key:'C#', scale:SCALE.MAJOR});
-			console.log('C# Major', scale.getChromaticScale());
+			// scale = new Scale({key:'C#', scale:SCALE.MAJOR});
+			// console.log('C# Major', scale.getChromaticScale());
 
-			scale = new Scale({key:'E', scale:SCALE.MAJOR});
-			console.log('E Major', scale.getChromaticScale(true));
+			// scale = new Scale({key:'E', scale:SCALE.MAJOR});
+			// console.log('E Major', scale.getChromaticScale(true));
 
-			scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
-			console.log('Eb Major', scale.getChromaticScale(true));
+			// scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
+			// console.log('Eb Major', scale.getChromaticScale(true));
 
 			// scale = new Scale({key:'Eb', scale:SCALE.MAJOR});
 			// scale.getChromaticScale();
@@ -44,8 +44,10 @@
 			// scale.getChromaticScale();
 
 			// // chords
-			// chord = new Chord();
-			// console.log(chord.getAllChords());
+			chord = new Chord();
+			console.log(chord.getEnharmonic(['G#','Ab']));
+			console.log(chord.getChordName(['E','Ab','B']));
+			console.log(chord.getChordName(['E','G#','B']));
 
 		</script>
 	</head>

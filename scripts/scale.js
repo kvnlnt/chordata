@@ -246,7 +246,7 @@ var Scale = function(options) {
                 'F#':'Gb',
                 'Gb':'F#',
                 'G#':'Ab'
-            }
+            };
 
             var used  = [];
             var notes = [];

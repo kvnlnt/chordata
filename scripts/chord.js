@@ -1,31 +1,32 @@
+// Chord "types"
 var CHORD = {
 
 	// MAJORS
-	MAJOR:['1','3','5'],
-	MAJOR_6TH:['1','3','5','6'],
-	MAJOR_6TH_ADD_9:['1','3','5','6','9'],
-	MAJOR_7TH:['1','3','5','7'],
-	MAJOR_ADD_9:['1','3','5','9'],
-	MAJOR_9TH:['1','3','5','7','9'],
-	MAJOR_13TH:['1','3','5','7','9','13'],
+	MAJOR: 				{ formula:['1','3','5'], 						name:"Major", 	jtabType:"" 	},
+	MAJOR_6TH: 			{ formula:['1','3','5','6'], 					name:"6",	 	jtabType:"6" 	},
+	MAJOR_6TH_ADD_9: 	{ formula:['1','3','5','6','9'], 				name:"6add9", 	jtabType:"69" 	},
+	MAJOR_7TH: 			{ formula:['1','3','5','7'], 					name:"M7", 		jtabType:"M7" 	},
+	MAJOR_ADD_9: 		{ formula:['1','3','5','9'], 					name:"add9", 	jtabType:"add9" },
+	MAJOR_9TH: 			{ formula:['1','3','5','7','9'], 				name:"maj9",	jtabType:"maj9" },
+	MAJOR_13TH: 		{ formula:['1','3','5','7','9','13'], 			name:"13",		jtabType:"13" 	},
 
 	// MINORS
-	MINOR:['1','3b','5'],
-	MINOR_6TH:['1','3b','5','6'],
-	MINOR_6TH_ADD_9:['1','3b','5','6','9'],
-	MINOR_7TH:['1','3b','5','7b'],
-	MINOR_7TH_FLAT_5:['1','3b','5b','7b'],
-	MINOR_ADD_9:['1','3b','5','9'],
-	MINOR_9TH:['1','3b','5','7b','9'],
-	MINOR_11TH:['1','3b','5','7b','9','11'],
-	MINOR_13TH:['1','3b','5','7b','9','11','13'],
+	MINOR: 				{ formula:['1','3b','5'],						name:"Minor", 	jtabType:"m" 	},
+	MINOR_6TH: 			{ formula:['1','3b','5','6'],					name:"m6",		jtabType:"m6" 	},
+	MINOR_6TH_ADD_9: 	{ formula:['1','3b','5','6','9'],				name:"m6add9",  jtabType:""		},
+	MINOR_7TH: 			{ formula:['1','3b','5','7b'],					name:"m7", 		jtabType:"m7" 	},
+	MINOR_7TH_FLAT_5: 	{ formula:['1','3b','5b','7b'],					name:"7b5", 	jtabType:"7b5" 	},
+	MINOR_ADD_9: 		{ formula:['1','3b','5','9'],					name:"m9",		jtabType:"m9"   },
+	MINOR_9TH: 			{ formula:['1','3b','5','7b','9'],				name:"madd9", 	jtabType:""		},
+	MINOR_11TH: 		{ formula:['1','3b','5','7b','9','11'], 		name:"m11",		jtabType:"" 	},
+	MINOR_13TH: 		{ formula:['1','3b','5','7b','9','11','13'], 	name:"m13", 	jtabType:""	},
 
 	// OTHERS
-	AUGMENTED:['1','3','5#'],
-	DIMINISHED:['1','3b','5b'],
-	DOMINANT_7TH:['1','3','5','7b'],
-	SUSPENDED_4TH:['1','4','5'],
-	SUSPENDED_2ND:['1','2','5']
+	AUGMENTED: 			{ formula:['1','3','5#'],						name:"aug", 	jtabType:"aug" 	},
+	DIMINISHED: 		{ formula:['1','3b','5b'],						name:"dim",		jtabType:"dim" 	},
+	DOMINANT_7TH: 		{ formula:['1','3','5','7b'],					name:"dom7",	jtabType:"7"  	},
+	SUSPENDED_4TH: 		{ formula:['1','4','5'],						name:"sus4", 	jtabType:"sus4" },
+	SUSPENDED_2ND: 		{ formula:['1','2','5'], 						name:"sus2", 	jtabType:"sus2" }
 	
 };
 
@@ -33,7 +34,7 @@ var Chord = function(options){
 
 	// SETTINGS
 
-	    var defaults = { root:'C', type:CHORD.MAJOR };
+	    var defaults = { root:'C', type:CHORD.MAJOR.formula };
 	    var settings = _.extend({}, defaults, options);
 
     // GETTERS
@@ -52,7 +53,7 @@ var Chord = function(options){
 	    var getChordNotes = function(){
 	    	
 	    	var scale   = new Scale({key:settings.root, scale:SCALE.MAJOR}); // prepare major scale for operation 
-	    	var formula = settings.type; // get notes based on chord formula
+	    	var formula = settings.type.formula; // get notes based on chord formula
 	    	var notes   = []; // notes container
 
 	    	// loop formula and modify scale accordingly
@@ -103,7 +104,10 @@ var Chord = function(options){
 						for(var chordtype in CHORD){
 							var chord = new Chord({root:(root+acc), type:CHORD[chordtype]});
 							i += 1;
-							chords[root+acc][chordtype] = chord.getChordNotes();
+							chords[root+acc][chordtype] = {
+								notes:chord.getChordNotes(),
+								type:chord.getType()
+							};
 						}
 					}
 				}
@@ -123,9 +127,9 @@ var Chord = function(options){
 
 	    	for(var key in allChords){
 	    		for(var chord in allChords[key]){
-	    			var notes = allChords[key][chord];
-	    			if(_.contains(notes,note)){
-	    				foundChords.push({key:key, chord:chord, notes:notes});
+	    			var notes = allChords[key][chord].notes;
+	    			if(_.contains(notes,note) || _.contains(notes, getEnharmonic(note))){
+	    				foundChords.push({key:key, chord:chord, notes:notes, type:allChords[key][chord].type });
 	    			}
 	    		}
 	    	}
@@ -150,14 +154,17 @@ var Chord = function(options){
 	    		for(var chord in allChords[key]){
 
 	    			// get notes from chord
-	    			var _notes = allChords[key][chord];
+	    			var _notes = allChords[key][chord].notes;
 
 	    			// assume match to true
 	    			var match = 0 == _.difference(_notes, notes).length && 0 == _.difference(notes, _notes) ? true : false;
 
+	    			// assume enharmonic match
+	    			var match_enharmonic = 0 == _.difference(_notes, getEnharmonic(notes)).length && 0 == _.difference(getEnharmonic(notes), _notes) ? true : false;
+
 	    			// if still a match, add to found list
-	    			if(match){
-	    				foundChords.push({key:key, chord:chord, notes:_notes});
+	    			if(match || match_enharmonic){
+	    				foundChords.push({key:key, chord:chord, notes:_notes, type:allChords[key][chord].type});
 	    			}
 
 	    		} // for
@@ -167,6 +174,73 @@ var Chord = function(options){
 	    	var result = _.sortBy(foundChords, function(chord){ return chord.key != root; });
 
 	    	return result;
+
+	    };
+
+	    // try to name a chord
+	    var getChordName = function(notes){
+
+	    	// get notes
+	    	var uniques = _.uniq(notes);
+
+	    	// find possible chords
+	    	var candidates = getChordsContainingNotes(uniques);
+
+	    	// search for chords with these notes
+	    	var candidate = candidates[0];
+
+	    	// chord type
+	    	var type = candidate.type;
+	    	var root = candidate.key.charAt(0);
+	    	var acc  = candidate.key.charAt(1);
+	    	var base = candidate.notes[0];
+	    	var name = base !== notes[0] ? base + '/' + notes[0] : base;
+
+	    	// result
+	    	var chord ={
+	    		root:root,
+	    		acc:acc,
+	    		type:type.name,
+	    		formula:type.formula,
+	    		jtabType:type.jtabType,
+	    		name:name
+	    	}
+
+	    	// guess at final name for chord
+	    	return chord;
+	    };
+
+	    // get enharmonic of note
+	    var getEnharmonic = function(notes){
+
+	    	// enharmonics
+	    	var enharmonic = {
+                'Ab':'G#',
+                'A#':'Bb',
+                'Bb':'A#',
+                'B#':'C',
+                'Cb':'B',
+                'C#':'Db',
+                'Db':'C#',
+                'D#':'Eb',
+                'Eb':'D#',
+                'E#':'F',
+                'Fb':'E',
+                'F#':'Gb',
+                'Gb':'F#',
+                'G#':'Ab'
+            };
+
+            // make it an array if it's an string
+            var notes = typeof notes === "string" ? [notes] : notes;
+
+            // translate al the notes
+            notes = _.map(notes, function(note){ 
+            	note = enharmonic[note] === void 0 ? note : enharmonic[note];
+            	return note; });
+
+            // return the main object
+            return notes;
 
 	    };
 
@@ -192,7 +266,9 @@ var Chord = function(options){
 	    	getChordNotes:getChordNotes,
 	    	getAllChords:getAllChords,
 	    	getChordsContainingNote:getChordsContainingNote,
-	    	getChordsContainingNotes:getChordsContainingNotes
+	    	getChordsContainingNotes:getChordsContainingNotes,
+	    	getChordName:getChordName,
+	    	getEnharmonic:getEnharmonic,
 	    }
 
 };
