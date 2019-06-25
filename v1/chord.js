@@ -186,28 +186,37 @@ var Chord = function(options){
 	    	// find possible chords
 	    	var candidates = getChordsContainingNotes(uniques);
 
-	    	// search for chords with these notes
-	    	var candidate = candidates[0];
+	    	if(candidates.length > 0) {
 
-	    	// chord type
-	    	var type = candidate.type;
-	    	var root = candidate.key.charAt(0);
-	    	var acc  = candidate.key.charAt(1);
-	    	var base = candidate.notes[0];
-	    	var name = base !== notes[0] ? base + '/' + notes[0] : base;
+	    		// search for chords with these notes
+		    	var candidate = candidates[0];
 
-	    	// result
-	    	var chord ={
-	    		root:root,
-	    		acc:acc,
-	    		type:type.name,
-	    		formula:type.formula,
-	    		jtabType:type.jtabType,
-	    		name:name
+		    	// chord type
+		    	var type = candidate.type;
+		    	var root = candidate.key.charAt(0);
+		    	var acc  = candidate.key.charAt(1);
+		    	var base = candidate.notes[0];
+		    	var name = base !== notes[0] ? base + '/' + notes[0] : base;
+
+		    	// result
+		    	var chord = {
+		    		root:root,
+		    		acc:acc,
+		    		type:type.name,
+		    		formula:type.formula,
+		    		jtabType:type.jtabType,
+		    		name:name
+		    	}
+
+		    	// guess at final name for chord
+		    	return chord;
+
+	    	} else {
+
+	    		return false;
+
 	    	}
-
-	    	// guess at final name for chord
-	    	return chord;
+	    	
 	    };
 
 	    // get enharmonic of note
